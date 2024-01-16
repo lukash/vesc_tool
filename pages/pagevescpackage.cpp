@@ -202,6 +202,10 @@ void PageVescPackage::on_loadRefreshButton_clicked()
     }
 
     auto pkg = mLoader.unpackVescPackage(f.readAll());
+    if (!pkg.loadOk) {
+        mVesc->emitMessageDialog(tr("Open Package"), tr("Package is not valid."), false);
+        return;
+    }
     ui->loadBrowser->document()->setHtml(pkg.description);
 }
 
@@ -231,6 +235,10 @@ void PageVescPackage::on_outputRefreshButton_clicked()
     }
 
     auto pkg = mLoader.unpackVescPackage(f.readAll());
+    if (!pkg.loadOk) {
+        mVesc->emitMessageDialog(tr("Open Package"), tr("Package is not valid."), false);
+        return;
+    }
     ui->descriptionEdit->document()->setHtml(pkg.description);
     ui->nameEdit->setText(pkg.name);
 }
